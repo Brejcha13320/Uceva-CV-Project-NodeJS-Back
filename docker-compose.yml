@@ -1,0 +1,11 @@
+services:
+  mysql-db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: cv-project
+    volumes:
+      - ./volume/cv-project:/var/lib/mysql
+    ports:
+      - 3306:3306
