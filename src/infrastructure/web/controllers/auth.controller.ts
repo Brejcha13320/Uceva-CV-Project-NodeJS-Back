@@ -34,7 +34,6 @@ export class AuthController {
     }
 
     validateAuth = (request: Request, response: Response) => {
-        console.log('entro controller')
         const [error, validateAuthDTO] = ValidateAuthDto.create(request.body);
         if(error) return response.status(400).json({ error });
         this.validateAuthUseCase

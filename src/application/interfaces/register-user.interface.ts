@@ -1,3 +1,3 @@
 import { UserEntity } from "../../domain/entities/user.entity";
 
-export type RegisterUserResponse = Omit<UserEntity, "password">
+export type RegisterUserResponse = Omit<UserEntity, "password">;
