@@ -31,4 +31,20 @@ export class UserRepositoryImpl extends UserRepository {
         );
     }
 
+    async findById(id: string): Promise<UserEntity | null> {
+        const user = await prisma.user.findUnique({
+            where: { id }
+        });
+
+        if (!user) return null;
+
+        return new UserEntity(
+            user.id,
+            user.name,
+            user.email,
+            user.password,
+            user.role
+        );
+    }
+
 }

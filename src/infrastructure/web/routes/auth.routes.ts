@@ -3,6 +3,7 @@ import { LoginUserUseCase } from "../../../application/usecases/login-user.useca
 import { RegisterUserUseCase } from "../../../application/usecases/register-user.usecase";
 import { UserRepositoryImpl } from "../../database/repositories/user.repository.impl";
 import { AuthController } from "../controllers/auth.controller";
+import { ValidateAuthUseCase } from "../../../application/usecases/validate-auth.usecase";
 
 export class AuthRoutes {
   static get routes(): Router {
@@ -11,10 +12,12 @@ export class AuthRoutes {
     const repository = new UserRepositoryImpl();
     const loginUserUseCase = new LoginUserUseCase(repository);
     const registerUserUseCase = new RegisterUserUseCase(repository);
-    const controller = new AuthController(loginUserUseCase, registerUserUseCase);
+    const validateAuthUseCase = new ValidateAuthUseCase(repository);
+    const controller = new AuthController(loginUserUseCase, registerUserUseCase, validateAuthUseCase);
 
     router.post("/login", controller.loginUser);
     router.post("/register", controller.registerUser);
+    router.post("/validate", controller.validateAuth);
 
     return router;
   }
