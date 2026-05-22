@@ -2,6 +2,8 @@ export type UserRole = "ESTUDIANTE" | "DOCENTE" | "ADMIN";
 
 export type CreateUserData = Omit<UserEntity, "id">;
 
+export type User = Omit<UserEntity, "password">;
+
 export class UserEntity {
   constructor(
     public readonly id: string,

@@ -47,4 +47,13 @@ export class UserRepositoryImpl extends UserRepository {
         );
     }
 
+    async getAll(): Promise<UserEntity[]>{
+        const users = await prisma.user.findMany();
+        return users
+            .map(
+                ({ id, name, email, password, role }) => 
+                    new UserEntity(id, name, email, password, role)
+            );
+    }
+
 }
