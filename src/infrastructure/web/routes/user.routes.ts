@@ -13,7 +13,7 @@ export class UserRoutes {
     const repository = new UserRepositoryImpl();
     const getAllUsersUseCase = new GetAllUsersUseCase(repository);
     const getUserByIdUseCase = new GetUserByIdUseCase(repository);
-    const controller = new UserController(getAllUsersUseCase);
+    const controller = new UserController(getAllUsersUseCase, getUserByIdUseCase);
 
     //Middleware para todas las rutas
     router.use([ValidateTokenMiddleware.validateToken(getUserByIdUseCase)]);
@@ -22,6 +22,12 @@ export class UserRoutes {
       "/", 
       [ValidRolMiddleware.validateRol(["ADMIN"])],
       controller.getAll
+    );
+
+    router.get(
+      "/:id", 
+      [ValidRolMiddleware.validateRol(["ADMIN"])],
+      controller.getById
     );
 
     return router;
